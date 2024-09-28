@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/r124288adri/public_html/
-    - /bin/cp -R out $DEPLOYPATH
+    - /bin/cp -R out/* $DEPLOYPATH
