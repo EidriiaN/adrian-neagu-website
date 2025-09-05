@@ -72,7 +72,10 @@ const Main = () => {
       </FadeInSection>
       {/* Projects Section */}
       <FadeInSection>
-        <section id="projects" className="w-full max-w-3xl mx-auto h-[480px] flex flex-col justify-center items-center bg-gray-900/80 rounded-2xl shadow-2xl px-8 py-12 border border-gray-800 relative overflow-hidden">
+        <section
+          id="projects"
+          className="w-full max-w-3xl mx-auto h-[480px] flex flex-col justify-center items-center bg-gray-900/80 rounded-2xl shadow-2xl px-8 py-12 border border-gray-800 relative overflow-hidden"
+        >
           <h2 className="text-4xl font-extrabold mb-8 text-cyan-400 text-center w-full">Projects</h2>
           <div className="flex flex-col md:flex-row gap-8 w-full h-full items-center justify-center">
             <div className="flex-1 max-w-xs w-full bg-gray-800/70 rounded-xl p-6 shadow-lg backdrop-blur-md border border-cyan-400/20 flex flex-col justify-center text-center transition-transform duration-300 hover:scale-105">
@@ -92,7 +95,10 @@ const Main = () => {
       </FadeInSection>
       {/* Testimonials Section */}
       <FadeInSection>
-        <section id="testimonials" className="w-full max-w-3xl mx-auto h-[480px] flex flex-col justify-center items-center bg-gray-900/80 rounded-2xl shadow-2xl px-8 py-12 border border-cyan-800/40">
+        <section
+          id="testimonials"
+          className="w-full max-w-3xl mx-auto h-[480px] flex flex-col justify-center items-center bg-gray-900/80 rounded-2xl shadow-2xl px-8 py-12 border border-cyan-800/40"
+        >
           <h2 className="text-4xl font-extrabold mb-8 text-cyan-400 text-center w-full">Testimonials</h2>
           <div className="flex flex-row gap-8 w-full h-full items-center justify-center">
             <div className="flex-1 max-w-xs w-full bg-gray-800/70 rounded-xl p-6 shadow-lg backdrop-blur-md border border-cyan-400/20 flex flex-col justify-center text-center transition-transform duration-300 hover:scale-105">
@@ -112,7 +118,10 @@ const Main = () => {
       </FadeInSection>
       {/* Contact Section */}
       <FadeInSection>
-        <section id="contact" className="w-full max-w-3xl mx-auto h-[480px] flex flex-col justify-center items-center bg-gray-900/80 rounded-2xl shadow-2xl px-8 py-12 border border-gray-800">
+        <section
+          id="contact"
+          className="w-full max-w-3xl mx-auto h-[480px] flex flex-col justify-center items-center bg-gray-900/80 rounded-2xl shadow-2xl px-8 py-12 border border-gray-800"
+        >
           <h2 className="text-4xl font-extrabold mb-8 text-cyan-400 text-center w-full">Contact</h2>
           <form className="flex flex-col gap-6 w-full h-full justify-center bg-gray-800/70 rounded-xl p-6 shadow-lg backdrop-blur-md border border-cyan-400/20">
             <input
