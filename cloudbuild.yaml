@@ -1,32 +1,32 @@
 steps:
   # Build the container image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'europe-north2-docker.pkg.dev/$PROJECT_ID/adrian-neagu-repo/adrian-neagu:$COMMIT_SHA', '.']
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "europe-north2-docker.pkg.dev/$PROJECT_ID/adrian-neagu-repo/adrian-neagu:$COMMIT_SHA", "."]
     env:
       - "DOCKER_BUILDKIT=1"
 
   # Push the container image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'europe-north2-docker.pkg.dev/$PROJECT_ID/adrian-neagu-repo/adrian-neagu:$COMMIT_SHA']
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "europe-north2-docker.pkg.dev/$PROJECT_ID/adrian-neagu-repo/adrian-neagu:$COMMIT_SHA"]
 
   # Deploy container image to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     entrypoint: gcloud
     args:
-      - 'run'
-      - 'deploy'
-      - 'adrian-neagu'
-      - '--image=europe-north2-docker.pkg.dev/$PROJECT_ID/adrian-neagu-repo/adrian-neagu:$COMMIT_SHA'
-      - '--region=europe-north2'
-      - '--platform=managed'
-      - '--allow-unauthenticated'
-      - '--min-instances=0'
-      - '--max-instances=1'
-      - '--cpu=1'
-      - '--memory=512Mi'
+      - "run"
+      - "deploy"
+      - "adrian-neagu-website"
+      - "--image=europe-north2-docker.pkg.dev/$PROJECT_ID/adrian-neagu-repo/adrian-neagu:$COMMIT_SHA"
+      - "--region=europe-north2"
+      - "--platform=managed"
+      - "--allow-unauthenticated"
+      - "--min-instances=0"
+      - "--max-instances=1"
+      - "--cpu=1"
+      - "--memory=512Mi"
 
 images:
-  - 'europe-north2-docker.pkg.dev/$PROJECT_ID/adrian-neagu-repo/adrian-neagu:$COMMIT_SHA'
+  - "europe-north2-docker.pkg.dev/$PROJECT_ID/adrian-neagu-repo/adrian-neagu:$COMMIT_SHA"
 
 options:
   logging: CLOUD_LOGGING_ONLY
