@@ -20,7 +20,6 @@ steps:
       - "--region=europe-north2"
       - "--platform=managed"
       - "--ingress=all"
-      - "--no-use-iam-auth"
       - "--min-instances=0"
       - "--max-instances=1"
       - "--cpu=1"
@@ -30,4 +29,5 @@ images:
   - "europe-north2-docker.pkg.dev/$PROJECT_ID/adrian-neagu-repo/adrian-neagu:$COMMIT_SHA"
 
 options:
+  logging: CLOUD_LOGGING_ONLY
   logging: CLOUD_LOGGING_ONLY
