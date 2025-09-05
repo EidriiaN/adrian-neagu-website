@@ -20,6 +20,7 @@ steps:
       - "--region=europe-north2"
       - "--platform=managed"
       - "--ingress=all"
+      - "--no-invoker-iam-check"
       - "--min-instances=0"
       - "--max-instances=1"
       - "--cpu=1"
