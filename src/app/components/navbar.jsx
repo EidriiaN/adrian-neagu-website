@@ -1,71 +1,100 @@
-// components/Navbar.js
-"use client";
-import Link from "next/link";
-import { useState, useEffect } from "react";
+﻿"use client";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+import { Box, Flex, HStack, Link, IconButton, useDisclosure, Stack, Container, Text } from "@chakra-ui/react";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+
+const navLinks = [
+  { name: "About", href: "#about" },
+  { name: "Skills", href: "#skills" },
+  { name: "Education", href: "#education" },
+  { name: "AI Interests", href: "#ai-interests" },
+  { name: "Awards", href: "#awards" },
+  { name: "Projects", href: "#projects" },
+  { name: "Contact", href: "#contact" },
+];
+
+export default function Navbar() {
+  const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <nav className="bg-gray-950/70 backdrop-blur-xl p-4 fixed w-full z-20 top-0 shadow-2xl border-b border-cyan-700/30 transition-all duration-500">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-cyan-400 text-2xl font-extrabold tracking-tight transition-all duration-300 hover:text-cyan-300 hover:drop-shadow-glow">
-          <a href="#about">Adrian Neagu</a>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="block md:hidden">
-            <button className="text-cyan-400 focus:outline-none" onClick={() => setIsOpen(!isOpen)}>
-              <span className="text-3xl animate-pulse">☰</span>
-            </button>
-          </div>
-        </div>
-        <div className={`w-full md:flex md:items-center md:w-auto transition-all duration-300 ease-in-out ${isOpen ? "block" : "hidden"}`}>
-          <ul className="text-cyan-100 md:flex md:space-x-8 font-medium text-lg">
-            <li className="my-2 md:my-0 group">
-              <a
-                href="#about"
-                className="hover:text-cyan-400 transition-colors relative after:content-[''] after:block after:h-0.5 after:bg-cyan-400 after:scale-x-0 after:transition-transform after:duration-300 group-hover:after:scale-x-100 after:origin-left"
-              >
-                About Me
-              </a>
-            </li>
-            <li className="my-2 md:my-0 group">
-              <a
-                href="#skills"
-                className="hover:text-cyan-400 transition-colors relative after:content-[''] after:block after:h-0.5 after:bg-cyan-400 after:scale-x-0 after:transition-transform after:duration-300 group-hover:after:scale-x-100 after:origin-left"
-              >
-                Skills
-              </a>
-            </li>
-            <li className="my-2 md:my-0 group">
-              <a
-                href="#projects"
-                className="hover:text-cyan-400 transition-colors relative after:content-[''] after:block after:h-0.5 after:bg-cyan-400 after:scale-x-0 after:transition-transform after:duration-300 group-hover:after:scale-x-100 after:origin-left"
-              >
-                Projects
-              </a>
-            </li>
-            <li className="my-2 md:my-0 group">
-              <a
-                href="#testimonials"
-                className="hover:text-cyan-400 transition-colors relative after:content-[''] after:block after:h-0.5 after:bg-cyan-400 after:scale-x-0 after:transition-transform after:duration-300 group-hover:after:scale-x-100 after:origin-left"
-              >
-                Testimonials
-              </a>
-            </li>
-            <li className="my-2 md:my-0 group">
-              <a
-                href="#contact"
-                className="hover:text-cyan-400 transition-colors relative after:content-[''] after:block after:h-0.5 after:bg-cyan-400 after:scale-x-0 after:transition-transform after:duration-300 group-hover:after:scale-x-100 after:origin-left"
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
-};
+    <Box
+      as="nav"
+      position="fixed"
+      top={0}
+      left={0}
+      right={0}
+      zIndex={1000}
+      bg="rgba(18, 18, 18, 0.8)"
+      backdropFilter="blur(10px)"
+      borderBottom="1px"
+      borderColor="gray.700"
+    >
+      <Container maxW="container.xl">
+        <Flex h={16} alignItems="center" justifyContent="space-between">
+          {/* Logo */}
+          <Link href="#about" _hover={{ textDecoration: "none" }}>
+            <Text fontSize="xl" fontWeight="bold" color="brand.500">
+              AN
+            </Text>
+          </Link>
 
-export default Navbar;
+          {/* Desktop Navigation */}
+          <HStack as="nav" spacing={8} display={{ base: "none", md: "flex" }}>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                fontSize="md"
+                fontWeight="medium"
+                color="gray.300"
+                _hover={{
+                  color: "brand.500",
+                  textDecoration: "none",
+                }}
+                transition="color 0.2s"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </HStack>
+
+          {/* Mobile menu button */}
+          <IconButton
+            size="md"
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            aria-label="Toggle Navigation"
+            display={{ base: "flex", md: "none" }}
+            onClick={onToggle}
+            variant="ghost"
+            color="brand.500"
+            _hover={{ bg: "gray.800" }}
+          />
+        </Flex>
+
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <Box pb={4} display={{ md: "none" }}>
+            <Stack as="nav" spacing={4}>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={onToggle}
+                  fontSize="md"
+                  fontWeight="medium"
+                  color="gray.300"
+                  _hover={{
+                    color: "brand.500",
+                    textDecoration: "none",
+                  }}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </Stack>
+          </Box>
+        )}
+      </Container>
+    </Box>
+  );
+}

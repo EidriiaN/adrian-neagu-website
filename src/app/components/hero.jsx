@@ -1,30 +1,82 @@
-import React from "react";
+"use client";
 
-const Hero = () => {
+import { Box, Container, Heading, Text, VStack, HStack, Button, Icon, Flex } from "@chakra-ui/react";
+import { FiGithub, FiLinkedin, FiMail, FiDownload } from "react-icons/fi";
+import { motion } from "framer-motion";
+
+const MotionBox = motion(Box);
+const MotionHeading = motion(Heading);
+const MotionText = motion(Text);
+
+export default function Hero() {
   return (
-    <section className="relative flex flex-col items-center justify-center h-[80vh] w-full text-center overflow-hidden bg-gradient-to-br from-cyan-900 via-gray-900 to-gray-950">
-      <div
-        className="absolute inset-0 pointer-events-none animate-pulse opacity-30"
-        style={{ background: "radial-gradient(circle at 60% 40%, #22d3ee 0%, transparent 70%)" }}
-      />
-      <h1 className="text-5xl md:text-7xl font-extrabold text-cyan-300 drop-shadow-glow animate-fade-in-down">Adrian Neagu</h1>
-      <p className="mt-6 text-xl md:text-2xl text-cyan-100 animate-fade-in-up">Creative Full Stack Developer</p>
-      <div className="mt-10 flex gap-4 justify-center animate-fade-in-up">
-        <a
-          href="#projects"
-          className="px-6 py-3 rounded-lg bg-cyan-500/80 hover:bg-cyan-400 text-white font-semibold shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-300 animate-bounce"
-        >
-          View Projects
-        </a>
-        <a
-          href="#contact"
-          className="px-6 py-3 rounded-lg bg-gray-800/80 hover:bg-gray-700 text-cyan-200 font-semibold shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-300"
-        >
-          Contact Me
-        </a>
-      </div>
-    </section>
-  );
-};
+    <Flex as="section" id="about" minH="100vh" align="center" justify="center" bg="gray.900" pt={{ base: 20, md: 0 }}>
+      <Container maxW="container.md" zIndex={1}>
+        <VStack spacing={6} textAlign="center">
+          <MotionHeading
+            as="h1"
+            size="2xl"
+            fontFamily="mono"
+            color="gray.200"
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <Text as="span" color="brand.500">
+              {"//"}
+            </Text>{" "}
+            Adrian Neagu
+          </MotionHeading>
 
-export default Hero;
+          <MotionText
+            fontSize={{ base: "xl", md: "2xl" }}
+            color="gray.300"
+            maxW="lg"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Cloud Support Engineer @ Cognizant for Google Cloud Platform
+          </MotionText>
+
+          <MotionText
+            fontSize={{ base: "md", md: "lg" }}
+            color="brand.500"
+            maxW="lg"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            Serverless • Cloud Databases • Cloud Storage • GCP Specialist
+          </MotionText>
+
+          <MotionBox initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.4 }}>
+            <HStack spacing={4}>
+              <Button as="a" href="#projects" variant="outline" size="lg">
+                Explore My Work
+              </Button>
+              <Button as="a" href="/resume.pdf" download size="lg" colorScheme="brand" leftIcon={<Icon as={FiDownload} />}>
+                Download CV
+              </Button>
+            </HStack>
+          </MotionBox>
+
+          {/* Social Links */}
+          <HStack spacing={6} pt={8}>
+            <MotionLink href="https://github.com/EidriiaN" icon={FiGithub} delay={0.6} />
+            <MotionLink href="https://www.linkedin.com/in/adrian-neagu-0838a0243/" icon={FiLinkedin} delay={0.7} />
+            <MotionLink href="mailto:adrian.neagu@gcloud.ro" icon={FiMail} delay={0.8} />
+          </HStack>
+        </VStack>
+      </Container>
+    </Flex>
+  );
+}
+
+const MotionLink = ({ href, icon, delay }) => (
+  <MotionBox initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay }}>
+    <Button as="a" href={href} target="_blank" variant="ghost" color="gray.500" _hover={{ color: "brand.500" }}>
+      <Icon as={icon} boxSize={6} />
+    </Button>
+  </MotionBox>
+);

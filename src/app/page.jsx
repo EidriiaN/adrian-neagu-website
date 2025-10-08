@@ -1,12 +1,13 @@
-import Image from "next/image";
 import Navbar from "./components/navbar";
 import Main from "./components/main";
 import Footer from "./components/footer";
 import Hero from "./components/hero";
+import StructuredData from "./components/StructuredData";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+      <StructuredData />
       <Navbar />
       <Hero />
       {/* Animated SVG Divider */}
