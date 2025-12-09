@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy package files and install dependencies
 COPY package*.json ./
 RUN npm ci
+RUN npx fix-react2shell-next
 
 # Copy the rest of the application code
 COPY . .
