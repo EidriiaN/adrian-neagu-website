@@ -7,7 +7,10 @@ WORKDIR /app
 # Copy package files and install dependencies
 COPY package*.json ./
 RUN npm ci
-RUN npx fix-react2shell-next
+
+# --- FIX APPLIED HERE ---
+# Added --fix flag to auto-apply patches for detected vulnerabilities
+RUN npx fix-react2shell-next --fix
 
 # Copy the rest of the application code
 COPY . .
