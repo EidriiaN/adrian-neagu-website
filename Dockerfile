@@ -1,40 +1,36 @@
-# Use Node.js 18 as the base image
-FROM node:18-alpine AS builder
-
-# Set working directory
+FROM node:18-alpine AS deps
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copy package files and install dependencies
 COPY package*.json ./
 RUN npm ci
-
-# --- FIX APPLIED HERE ---
-# Added --fix flag to auto-apply patches for detected vulnerabilities
 RUN npx fix-react2shell-next --fix
 
-# Copy the rest of the application code
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build the Next.js application
+ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
-# Production image
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-# Set environment variables
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-# Copy necessary files from the builder stage
-COPY --from=builder /app/next.config.mjs ./
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Expose the port the app will run on
-EXPOSE 8080
+USER nextjs
 
-# Start the Next.js application
-CMD ["npm", "start"]
+EXPOSE 3000
+
+CMD ["node", "server.js"]
